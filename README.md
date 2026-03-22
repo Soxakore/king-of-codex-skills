@@ -42,6 +42,11 @@ Skill files live at [skills/repo-pilot](./skills/repo-pilot).
 ```text
 codex-engineering-skills/
 ├── skills/
+│   ├── repo-pilot/
+│   │   ├── SKILL.md
+│   │   ├── agents/
+│   │   ├── references/
+│   │   └── examples/
 │   └── verified-operator/
 │       ├── SKILL.md
 │       ├── agents/
@@ -93,7 +98,7 @@ This repo is already live on GitHub:
 These work well when you create the repo:
 
 - Description:
-  `Battle-tested Codex skills for verified operations, live-system execution, and safer agent workflows.`
+  `Battle-tested Codex skills for repo navigation, verified operations, and safer agent workflows.`
 - Topics:
   `codex`, `openai`, `skills`, `ai-agents`, `automation`, `developer-tools`
 
