@@ -1,0 +1,4 @@
+interface:
+  display_name: "Chrome Session Bridge"
+  short_description: "Use your real Chrome session safely"
+  default_prompt: "Use $chrome-session-bridge to inspect or control my already-open Google Chrome session without launching an isolated browser."

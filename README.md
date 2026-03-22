@@ -37,6 +37,14 @@ Best for tasks where Codex should understand the codebase before editing:
 
 Skill files live at [skills/repo-pilot](./skills/repo-pilot).
 
+## Additional Skills
+
+### `chrome-session-bridge`
+
+Connect Codex to your already-open Google Chrome session on macOS so it can inspect real tabs, switch tabs, open URLs, and optionally run page JavaScript when Chrome's Apple Events JavaScript setting is enabled.
+
+Skill files live at [skills/chrome-session-bridge](./skills/chrome-session-bridge).
+
 ## Repo Layout
 
 ```text
