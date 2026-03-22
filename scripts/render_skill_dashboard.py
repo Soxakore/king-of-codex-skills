@@ -403,7 +403,7 @@ def render_html(payload: dict) -> str:
       --ink: #edf5ff;
       --muted: #7f92ad;
       --muted-2: #617089;
-      --radius: 18px;
+      --radius: 20px;
       --radius-sm: 13px;
       --shadow: 0 22px 60px rgba(0, 0, 0, 0.28);
     }
@@ -437,7 +437,7 @@ def render_html(payload: dict) -> str:
     .app-shell {
       max-width: 1680px;
       margin: 0 auto;
-      padding: 18px;
+      padding: 22px;
     }
 
     .panel {
@@ -451,17 +451,21 @@ def render_html(payload: dict) -> str:
 
     .command-bar {
       display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 18px;
-      align-items: center;
-      padding: 16px 18px;
-      margin-bottom: 14px;
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas:
+        "brand controls"
+        "meta meta";
+      gap: 18px 24px;
+      align-items: start;
+      padding: 22px 24px;
+      margin-bottom: 18px;
     }
 
     .brand-cluster {
+      grid-area: brand;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
       min-width: 0;
     }
 
@@ -502,16 +506,18 @@ def render_html(payload: dict) -> str:
     }
 
     .control-cluster {
+      grid-area: controls;
       display: grid;
-      gap: 10px;
-      justify-items: center;
+      gap: 12px;
+      justify-items: end;
+      align-content: start;
     }
 
     .segmented {
       display: inline-flex;
       flex-wrap: wrap;
-      gap: 8px;
-      padding: 8px;
+      gap: 10px;
+      padding: 10px;
       background: rgba(8, 14, 24, 0.88);
       border: 1px solid rgba(124, 155, 196, 0.12);
       border-radius: 999px;
@@ -555,14 +561,15 @@ def render_html(payload: dict) -> str:
     }
 
     .command-meta {
+      grid-area: meta;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      min-width: 420px;
+      gap: 12px;
+      min-width: 0;
     }
 
     .meta-chip {
-      padding: 10px 12px;
+      padding: 12px 14px;
       border-radius: var(--radius-sm);
       background: rgba(11, 17, 28, 0.92);
       border: 1px solid rgba(124, 155, 196, 0.11);
@@ -588,17 +595,17 @@ def render_html(payload: dict) -> str:
 
     .workspace {
       display: grid;
-      grid-template-columns: 74px minmax(0, 1fr);
-      gap: 14px;
+      grid-template-columns: 82px minmax(0, 1fr);
+      gap: 18px;
       align-items: start;
     }
 
     .left-rail {
       position: sticky;
       top: 18px;
-      padding: 14px 10px;
+      padding: 18px 12px;
       display: grid;
-      gap: 14px;
+      gap: 18px;
     }
 
     .rail-label {
@@ -656,18 +663,18 @@ def render_html(payload: dict) -> str:
 
     .desk {
       display: grid;
-      gap: 14px;
+      gap: 18px;
     }
 
     .summary-strip {
       display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
     }
 
     .status-card {
-      padding: 15px 16px;
-      min-height: 104px;
+      padding: 18px 18px 16px;
+      min-height: 118px;
       border-radius: var(--radius);
       background: var(--panel-glow);
       border: 1px solid var(--line);
@@ -699,8 +706,8 @@ def render_html(payload: dict) -> str:
 
     .main-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.6fr) 370px;
-      gap: 14px;
+      grid-template-columns: minmax(0, 1.7fr) 344px;
+      gap: 18px;
       align-items: start;
     }
 
@@ -714,8 +721,8 @@ def render_html(payload: dict) -> str:
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 16px;
-      padding: 16px 18px;
+      gap: 18px;
+      padding: 18px 22px;
       border-bottom: 1px solid rgba(124, 155, 196, 0.09);
     }
 
@@ -738,23 +745,23 @@ def render_html(payload: dict) -> str:
     }
 
     .panel-body {
-      padding: 18px;
+      padding: 22px;
     }
 
     .chart-shell {
       display: grid;
-      gap: 16px;
-      padding: 18px;
+      gap: 18px;
+      padding: 22px;
     }
 
     .chart-summary {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
     }
 
     .mini-metric {
-      padding: 12px 13px;
+      padding: 15px 16px;
       border-radius: 14px;
       background: rgba(10, 17, 28, 0.92);
       border: 1px solid rgba(124, 155, 196, 0.09);
@@ -827,13 +834,16 @@ def render_html(payload: dict) -> str:
 
     .side-panel {
       display: grid;
-      gap: 0;
+      gap: 12px;
+      padding: 12px;
       align-content: start;
     }
 
     .side-section {
-      padding: 16px 18px;
-      border-bottom: 1px solid rgba(124, 155, 196, 0.08);
+      padding: 18px 20px;
+      border: 1px solid rgba(124, 155, 196, 0.09);
+      border-radius: 16px;
+      background: rgba(9, 15, 25, 0.84);
     }
 
     .side-section:last-child {
@@ -854,16 +864,16 @@ def render_html(payload: dict) -> str:
     .ticker-list,
     .watch-rows {
       display: grid;
-      gap: 10px;
+      gap: 12px;
     }
 
     .ticker-item,
     .watch-row {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
-      gap: 12px;
+      gap: 14px;
       align-items: center;
-      padding: 10px 0;
+      padding: 12px 0;
       border-bottom: 1px dashed rgba(124, 155, 196, 0.09);
     }
 
@@ -876,7 +886,7 @@ def render_html(payload: dict) -> str:
     .watch-left {
       display: grid;
       grid-template-columns: 30px minmax(0, 1fr);
-      gap: 10px;
+      gap: 12px;
       align-items: center;
     }
 
@@ -922,13 +932,13 @@ def render_html(payload: dict) -> str:
       justify-content: space-between;
       align-items: center;
       gap: 14px;
-      padding: 14px 18px;
+      padding: 18px 22px;
       border-bottom: 1px solid rgba(124, 155, 196, 0.09);
     }
 
     .tab-stage {
       min-height: 500px;
-      padding: 18px;
+      padding: 22px;
     }
 
     .tab-panel {
@@ -1169,6 +1179,10 @@ def render_html(payload: dict) -> str:
     @media (max-width: 1400px) {
       .command-bar {
         grid-template-columns: 1fr;
+        grid-template-areas:
+          "brand"
+          "controls"
+          "meta";
       }
 
       .command-meta {
@@ -1849,7 +1863,7 @@ def render_html(payload: dict) -> str:
 
     function renderStatusGrid() {
       const frames = state.data.overview.frames;
-      const top = currentLeaders()[0];
+      const frame = currentFrame();
       const cards = [
         {
           label: "Day",
@@ -1867,19 +1881,9 @@ def render_html(payload: dict) -> str:
           note: `${shortTokens(frames.month.tokens)} · eff ${fmt(frames.month.avg_efficiency, 1)}`
         },
         {
-          label: "Selected Tokens",
-          value: shortTokens(currentFrame().tokens),
-          note: `${pct(currentFrame().delta_tokens_pct)} vs previous window`
-        },
-        {
-          label: "Delivery",
-          value: `${fmt(currentFrame().delivery, 1)}%`,
-          note: `${fmt(currentFrame().avg_efficiency, 1)} efficiency`
-        },
-        {
-          label: "Leader",
-          value: top ? escapeHtml(top.skill) : "n/a",
-          note: top ? `${fmt(top.windows[state.timeframe].rank_score, 1)} rank score` : "no current leader"
+          label: `${TIMEFRAME_LABELS[state.timeframe]} Pulse`,
+          value: shortTokens(frame.tokens),
+          note: `${pct(frame.delta_tokens_pct)} vs previous · ${fmt(frame.delivery, 1)}% delivery`
         }
       ];
       document.getElementById("statusGrid").innerHTML = cards.map(card => `
@@ -1899,8 +1903,7 @@ def render_html(payload: dict) -> str:
         { label: "window", value: TIMEFRAME_LABELS[state.timeframe], note: `${fmtInt(frame.runs)} runs` },
         { label: "token flow", value: shortTokens(tokens.total_tokens), note: `${pct(frame.delta_tokens_pct)} window move` },
         { label: "leader", value: leaders[0] ? escapeHtml(leaders[0].skill) : "n/a", note: leaders[0] ? `${fmt(leaders[0].windows[state.timeframe].rank_score, 1)} score` : "no data" },
-        { label: "delivery", value: `${fmt(frame.delivery, 1)}%`, note: `${fmt(frame.avg_efficiency, 1)} avg efficiency` },
-        { label: "active", value: fmtInt(state.data.overview.active_skills), note: `${shortTokens(state.data.overview.total_tokens)} all-time tokens` }
+        { label: "delivery", value: `${fmt(frame.delivery, 1)}%`, note: `${fmt(frame.avg_efficiency, 1)} avg efficiency` }
       ];
       document.getElementById("chartSummary").innerHTML = summary.map(item => `
         <div class="mini-metric">
