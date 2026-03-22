@@ -2,3 +2,5 @@
 *.log
 *.tmp
 Thumbs.db
+telemetry/skill-runs.jsonl
+telemetry/skill-report.md

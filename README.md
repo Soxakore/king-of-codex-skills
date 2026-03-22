@@ -41,6 +41,8 @@ Skill files live at [skills/repo-pilot](./skills/repo-pilot).
 
 ```text
 codex-engineering-skills/
+├── docs/
+│   └── skill-tracking.md
 ├── skills/
 │   ├── repo-pilot/
 │   │   ├── SKILL.md
@@ -54,7 +56,12 @@ codex-engineering-skills/
 │       └── examples/
 ├── scripts/
 │   ├── install.sh
+│   ├── log_skill_run.py
+│   ├── render_skill_report.py
 │   └── validate.sh
+├── telemetry/
+│   ├── skill-report.sample.md
+│   └── skill-runs.sample.jsonl
 ├── CONTRIBUTING.md
 ├── LICENSE
 ├── NOTICE
@@ -86,6 +93,34 @@ bash ./scripts/validate.sh
 ```
 
 This uses Codex's local validator if it exists on the machine.
+
+## Track Skill Effectiveness
+
+This repo also includes lightweight local telemetry for a continuous improvement loop:
+
+- log meaningful skill runs to `telemetry/skill-runs.jsonl`
+- generate a report and Mermaid graph from that history
+- turn repeated challenge tags into concrete upgrade candidates
+
+Quick example:
+
+```bash
+python3 ./scripts/log_skill_run.py \
+  --skill repo-pilot \
+  --task "Fix README drift" \
+  --outcome success \
+  --duration-minutes 12 \
+  --value-score 4 \
+  --effort-score 2 \
+  --friction-score 2 \
+  --confidence 0.9 \
+  --challenge docs-drift \
+  --upgrade "add README release checklist"
+
+python3 ./scripts/render_skill_report.py
+```
+
+See [docs/skill-tracking.md](./docs/skill-tracking.md) for the full workflow.
 
 ## Publish To GitHub
 
