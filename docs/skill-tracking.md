@@ -132,18 +132,23 @@ That gives you a visible improvement loop instead of vague memory.
 The HTML dashboard is meant to feel more like a market board than a static report. It ranks skills using:
 
 - total usage
-- recent 7-day usage
+- day, week, and month activity windows
 - efficiency
 - delivery index
 - momentum
+- token usage
 - friction and time cost
 
 It also shows:
 
+- a calmer core board that stays visible on the main page
+- tabs for overview, rankings, calendar, tokens, pressure, and tape
 - top movers
 - cooling skills
 - pressure/watchlist lanes
-- a 21-day usage chart for the top-ranked skills
+- a 42-day calendar heatmap
+- a 30-day usage chart for the top-ranked skills
+- token mix and per-skill token leaders
 - recent tracked runs
 
 If you open the dashboard directly from the filesystem, it falls back to the embedded snapshot and auto-reloads once a minute. If you serve it over HTTP with `serve_skill_dashboard.py`, it will poll `skill-dashboard.json` every 20 seconds for a smoother live view.
@@ -160,6 +165,7 @@ For each detected turn it will:
 - capture the user task label from the turn prompt
 - estimate duration from the start of the turn to completion
 - infer friction from command failures and challenge language
+- extract token usage from Codex session events when available
 - infer challenge tags from repeated patterns like `timeout`, `race`, `permission`, or `path portability`
 - map those tags into upgrade candidates
 

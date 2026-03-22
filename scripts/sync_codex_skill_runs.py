@@ -109,6 +109,14 @@ UPGRADE_MAP = {
     "connectivity": "add network diagnostics and fallback paths",
 }
 
+TOKEN_KEYS = [
+    "input_tokens",
+    "cached_input_tokens",
+    "output_tokens",
+    "reasoning_output_tokens",
+    "total_tokens",
+]
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -127,6 +135,10 @@ def parse_args() -> argparse.Namespace:
         help="Where to write the combined report when --render is used.",
     )
     return parser.parse_args()
+
+
+def empty_token_usage() -> dict[str, int]:
+    return {key: 0 for key in TOKEN_KEYS}
 
 
 def load_skill_names(skill_root: Path) -> list[str]:
@@ -333,6 +345,8 @@ def new_turn() -> dict:
         "nonzero_exit_codes": 0,
         "evidence": [],
         "task_complete": False,
+        "token_usage": empty_token_usage(),
+        "last_total_token_usage": empty_token_usage(),
     }
 
 
@@ -381,6 +395,7 @@ def flush_turn(turn: dict, records: list[dict]) -> None:
         "challenge_tags": challenge_tags,
         "upgrade_candidates": upgrade_candidates,
         "evidence": turn["evidence"][:12],
+        "token_usage": dict(turn["token_usage"]),
         "notes": f"Auto-synced from Codex session logs in {turn['cwd']}" if turn["cwd"] else "Auto-synced from Codex session logs",
     }
     records.append(record)
@@ -430,6 +445,25 @@ def parse_session_file(path: Path, skill_names: list[str]) -> list[dict]:
                 elif role == "assistant":
                     current["assistant_messages"].append(text)
                     current["skill_mentions"].update(extract_skill_mentions(text, skill_names))
+                continue
+
+            if event_type == "event_msg" and payload.get("type") == "token_count":
+                info = payload.get("info") or {}
+                last_usage = info.get("last_token_usage") or {}
+                total_usage = info.get("total_token_usage") or {}
+                for key in TOKEN_KEYS:
+                    value = last_usage.get(key)
+                    if value is not None:
+                        current["token_usage"][key] += int(value)
+                    total_value = total_usage.get(key)
+                    if total_value is not None:
+                        total_value = int(total_value)
+                        previous_total = current["last_total_token_usage"][key]
+                        if value is None and total_value > previous_total:
+                            current["token_usage"][key] += total_value - previous_total
+                        current["last_total_token_usage"][key] = max(
+                            previous_total, total_value
+                        )
                 continue
 
             if event_type == "event_msg" and payload.get("type") == "user_message":
